@@ -1,28 +1,60 @@
 <html>
-
 <head>
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 	</head>
+	<body>
 
 <h1> Edit Restaurant </h1>
 
+<form action="{{ url_for('editRestaurant',restaurant_id = restaurant_id)}}" method = 'post'>
 
-<body>
+<dl>
+	<dt>Name:</dt>
+		<dd><input type ='text' size='30' name='name' placeholder = '{{i.name }}'></dd>
+	<dt>Description:</dt>
+		<dd><textarea name = 'description' rows='5' cols='40' placeholder = '{{i.description }}'></textarea></dd>
+	<dt>Price Range:</dt>
+		<dd><input type = 'text' size = '8' name='priceRange' placeholder = '{{i.priceRange}}'></dd>
+	<dt>cuisine:</dt>
 
-<form action="{{ url_for('editRestaurant',restaurant_id = restaurant.id)}}" method = 'post'>
+	{% if i.cuisine == 'American' %}
+		<dd><input type ='radio' name='cuisine' value='American'checked >American</dd>
+	{%else%}
+	<dd><input type ='radio' name='cuisine' value='American' >American</dd>
+    {% endif %}
+
+    {% if i.cuisine == 'Italian' %}
+       <dd><input type ='radio' name='cuisine' value='Italian' checked>Italian</dd>
+
+    {%else%}
+		<dd><input type ='radio' name='cuisine' value='Italian'>Italian</dd>
+    {% endif %}
+
+	{% if i.cuisine == 'French'%}
+		<dd><input type ='radio' name='cuisine' value='French'checked >French</dd>
+
+	{% else %}
+	   <dd><input type ='radio' name='cuisine' value='French'>French</dd>
+
+	{% endif %}
 
 
-	<p>Name:</p>
-		<input type ='text' size='30' name='name' placeholder = '{{restaurant.name }}'>
+	{%if i.cuisine =='Asian'%}
+		<dd><input type ='radio' name='cuisine' value='Asian'checked >Asian</dd>
+	{% else %}
+		<dd><input type ='radio' name='cuisine' value='Asian'>Asian</dd>
+	{% endif %}
+
+
+
+
+
+</dl>
 
 
 <input type='submit' value='Edit'>
 
-
-<a href = '{{url_for('showRestaurants')}}'> Cancel </a>
-
-
+<a href = '{{url_for('restaurantMenu', restaurant_id = i.restaurant_id)}}'> Cancel </a>
 </form>
 </body>
-
 </html>

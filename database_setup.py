@@ -12,6 +12,20 @@ class Restaurant(Base):
     __tablename__ = 'restaurant'
     name = Column(String(80), nullable = False)
     id = Column(Integer, primary_key = True)
+    description = Column(String(250))
+    priceRange = Column(String(25))
+    cuisine = Column(String(250))
+
+    @property
+    def serialize(self):
+        # Returns object data in easily serializable form
+        return{
+            "name": self.name,
+            "description": self.description,
+            "id": self.id,
+            "priceRange": self.priceRange,
+            "cuisine": self.cuisine
+        }
 
 class MenuItem(Base):
     __tablename__ = 'menu_items'
