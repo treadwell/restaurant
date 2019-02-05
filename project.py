@@ -69,19 +69,17 @@ def deleteRestaurant(restaurant_id):
         return render_template('deleteRestaurant.html', r = restaurantToDelete)
 
 
-# Make an API endpoint for all items (GET request)
-@app.route('/restaurant/<int:restaurant_id>/menu/JSON')
-def restaurantMenuJSON(restaurant_id):
-    restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
-    items = session.query(MenuItem).filter_by(restaurant_id = restaurant.id).all()
-    return jsonify(MenuItems = [i.serialize for i in items])
+# Make an API endpoint for all restaurants (GET request)
+@app.route('/restaurant/JSON')
+def allRestaurantsJSON():
+    restaurants = session.query(Restaurant).all()
+    return jsonify(Restaurants = [r.serialize for r in restaurants])
 
-# Make an API endpoint for one item (GET request)
-@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
-def menuItemJSON(restaurant_id, menu_id):
-    # restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
-    item = session.query(MenuItem).filter_by(restaurant_id = restaurant_id, id = menu_id).one()
-    return jsonify(MenuItems = [item.serialize])
+# Make an API endpoint for one restaurant (GET request)
+@app.route('/restaurant/<int:restaurant_id>/JSON')
+def singleRestaurantJSON(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    return jsonify(Restaurants = restaurant.serialize)
 
 # Show a restaurant menu
 @app.route('/restaurant/<int:restaurant_id>/')
@@ -132,6 +130,20 @@ def deleteMenuItem(restaurant_id, menu_id):
         return redirect(url_for('restaurantMenu', restaurant_id = restaurant_id))
     else:
         return render_template('deletemenuitem.html', i = itemToDelete)
+
+# Make an API endpoint for all items (GET request)
+@app.route('/restaurant/<int:restaurant_id>/menu/JSON')
+def restaurantMenuJSON(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    items = session.query(MenuItem).filter_by(restaurant_id = restaurant.id).all()
+    return jsonify(MenuItems = [i.serialize for i in items])
+
+# Make an API endpoint for one item (GET request)
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def menuItemJSON(restaurant_id, menu_id):
+    # restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    item = session.query(MenuItem).filter_by(restaurant_id = restaurant_id, id = menu_id).one()
+    return jsonify(MenuItems = [item.serialize])
 
 if __name__ == "__main__":
     app.secret_key = "super secret key"
