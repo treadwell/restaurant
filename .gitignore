@@ -1,0 +1,9 @@
+__pycache__
+*.pyc
+delete_data.py
+insert_data.py
+lotsofmenus.py
+read_data.py
+restserver.py
+update_data.py
+webserver.py
