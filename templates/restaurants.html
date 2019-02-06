@@ -13,12 +13,27 @@
 
 <div>
 
+<div class = 'flash'>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+
 <a href = "{{url_for('restaurantMenu', restaurant_id = restaurant.id)}}"> <h3>{{restaurant.name}}</h3></a>
+<p>
+<span>{{restaurant.description}}</span><br/>
+<span>Price range: {{restaurant.priceRange}}</span><br/>
+<span>{{restaurant.cuisine}} cuisine</span></p>
 
-<p><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">Edit Restaurant</a></p>
-
-<p> <a href = "{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">Delete Restaurant</a> </p>
-
+<p><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">Edit</a> </br>
+<a href = "{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">Delete</a> </p>
 </div>
 
 

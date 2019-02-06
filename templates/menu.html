@@ -14,7 +14,7 @@
 <div class = 'flash'>
 		      {% with messages = get_flashed_messages() %}
       {% if messages %}
-          
+
         <ul>
         {% for message in messages %}
             <li> <strong> {{ message }} </strong> </li>
@@ -29,22 +29,17 @@
 		{% for i in items %}
     <div class = 'nameAndPrice'>
 		<span class = 'name'><p>{{i.name}}</p></span>
-
-		<span class = 'price'>
-
-
-		<p>{{i.price}} </p>
-	</span>
+		<span class = 'price'> <p>{{i.price}} </p> </span>
 	</div>
 
-	
-	
+
+
 	<div class = 'description'>
 		<p>{{i.description}}</p>
 	</div>
 
-	
-	
+
+
 	<div class = "editdeletepane">
 
 	<a href='{{url_for('editMenuItem',restaurant_id = restaurant.id, menu_id=i.id)}}' >Edit</a>
@@ -58,8 +53,8 @@
 		{% endfor %}
 
 
-		
-		
+
+
 
 </div>
 </div>
